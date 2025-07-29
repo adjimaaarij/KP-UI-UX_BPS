@@ -1,0 +1,38 @@
+/* Telegram floating button styles */
+.telegram-floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #0088cc, #229ed9);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.telegram-floating-btn:hover {
+  background: linear-gradient(135deg, #229ed9, #0088cc);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 136, 204, 0.6);
+}
+
+.telegram-floating-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 136, 204, 0.4);
+}
+
+.telegram-floating-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.telegram-floating-btn:hover svg {
+  transform: scale(1.1);
+}
