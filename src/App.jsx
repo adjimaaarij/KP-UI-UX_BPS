@@ -1,58 +1,65 @@
-import './App.css'
-import Homepage from './Homepage.jsx'
-import LinkList from './Link.jsx'
-import TelegramButton from '../Component/telegram.jsx'
-import LogoBps from '../Component/Logo_bpd.jsx'
+import React, { useEffect } from 'react';
+import styles from './App_module.module.css';
+import TelegramButton from './Component/telegram.jsx';
+import LogoBps from './Component/Logo_bps.jsx';
+import LogoSensus from './Component/logo_sensus.jsx';
 
 function App() {
-  // Handler to redirect to homepage
   const handleRedirect = () => {
-    window.location.href = '/home'; // Adjust this path as necessary, e.g., '/homepage'
+    window.location.href = '/home';
   };
+
+  useEffect(() => {
+    const originalStyle = {
+      background: document.body.style.background,
+      backgroundSize: document.body.style.backgroundSize,
+      margin: document.body.style.margin,
+      padding: document.body.style.padding,
+      fontFamily: document.body.style.fontFamily,
+      display: document.body.style.display,
+      alignItems: document.body.style.alignItems,
+      justifyContent: document.body.style.justifyContent,
+      minHeight: document.body.style.minHeight,
+    };
+
+    document.body.style.background = "url('/Petani.jpg') no-repeat center center fixed";
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.body.style.fontFamily = "'Montserrat', sans-serif";
+    document.body.style.display = 'flex';
+    document.body.style.alignItems = 'center';
+    document.body.style.justifyContent = 'center';
+    document.body.style.minHeight = '100vh';
+
+    return () => {
+      Object.assign(document.body.style, originalStyle);
+    };
+  }, []);
 
   return (
     <>
-      {/* Logo, tidak bisa diklik */}
-      <div
-        style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}
-        onClick={e => e.stopPropagation()}
-      >
-        <LogoBps />
+      <div className={styles.appContainer}>
+        <div className={styles.logoSection} onClick={e => e.stopPropagation()}>
+          <LogoBps />
+          <LogoSensus />
+        </div>
+
+        <div className={styles.mainClickableArea} onClick={handleRedirect}>
+          <h1 className={styles.mainTitle}>INDIKATOR MAKRO</h1>
+          <h2 className={styles.subTitle}>KABUPATEN BARRU</h2>
+          <div className={styles.infoCard}>
+            <h2><strong>BARRU, MARET 2025</strong></h2>
+          </div>
+        </div>
       </div>
-      {/* Semua area lain, klik akan redirect */}
-      <div
-        onClick={handleRedirect}
-        style={{ cursor: 'pointer', userSelect: 'none' }}
-      >
-        <h1 style={{ color: 'darkred', fontWeight: 'bold', fontSize: '4.5rem', textAlign: 'center' }}>
-          INDIKATOR MAKRO
-        </h1>
-        <h2 style={{ fontWeight: 'bold', fontSize: '2rem', textAlign: 'center' }}>
-          KABUPATEN BARRU
-        </h2>
-        <div
-          className="card"
-          style={{
-            padding: '20px',
-            textAlign: 'center',
-            background: 'linear-gradient(to left, red, darkred)',
-            fontFamily: 'Arial, sans-serif',
-            color: 'white',
-            margin: '1rem auto',
-            maxWidth: '400px',
-            borderRadius: '12px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-          }}
-        >
-          <h2><strong>BARRU, MARET 2025</strong></h2>
-        </div>
-        {/* Telegram button, tetap bisa diklik tanpa redirect */}
-        <div onClick={e => e.stopPropagation()} style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-          <TelegramButton />
-        </div>
+
+      {/* Tombol Telegram keluar dari container utama */}
+      <div className={styles.telegramFixed}>
+        <TelegramButton />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

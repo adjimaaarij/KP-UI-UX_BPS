@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogoBps from '../Component/Logo_bpd';
+import LogoBps from './Component/Logo_bps';
+import LogoSensus from './Component/logo_sensus';
+import TelegramButton from './Component/telegram';
 import { DataLinks } from './Link';
 
 const Homepage = () => {
@@ -8,6 +10,7 @@ const Homepage = () => {
         <div className="flex flex-col items-center px-6 py-10 min-h-screen bg-gradient-to-br from-[#8B0000] via-[#D32F2F] to-[#f5f5f5] text-gray-900">
             {/* Logo */}
             <LogoBps />
+            <LogoSensus />
 
             {/* Title */}
             <h2 className="text-4xl font-extrabold mt-10 mb-4 text-[#8B0000] text-center drop-shadow-lg">
@@ -46,6 +49,10 @@ const Homepage = () => {
                         </div>
                     </Link>
                 ))}
+            </div>
+            {/* Telegram Button */}
+            <div className="mt-30">
+                <TelegramButton />
             </div>
         </div>
     );
