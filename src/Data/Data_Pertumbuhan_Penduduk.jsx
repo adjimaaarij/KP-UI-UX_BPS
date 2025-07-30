@@ -1,135 +1,151 @@
-import React, { useState, PureComponent } from 'react';
-import LogoBps from '../Component/Logo_bps.jsx'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
+import React, { useState, PureComponent } from "react";
+import LogoBps from "../Component/Logo_bps.jsx";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  LabelList,
+} from "recharts";
 
 const data_kecamatan = [
   {
-    name: 'Tanete Riaja',
+    name: "Tanete Riaja",
     data: [
       { tahun: 2020, jml_penduduk: 25217 },
       { tahun: 2021, jml_penduduk: 25449 },
-      { tahun: 2022, jml_penduduk: 25718 }, 
+      { tahun: 2022, jml_penduduk: 25718 },
       { tahun: 2023, jml_penduduk: 26755 },
       { tahun: 2024, jml_penduduk: 26869 },
-    ]
+    ],
   },
   {
-    name: 'Pujananting',
+    name: "Pujananting",
     data: [
       { tahun: 2020, jml_penduduk: 13104 },
       { tahun: 2021, jml_penduduk: 13077 },
-      { tahun: 2022, jml_penduduk: 13119 }, 
+      { tahun: 2022, jml_penduduk: 13119 },
       { tahun: 2023, jml_penduduk: 13964 },
       { tahun: 2024, jml_penduduk: 13999 },
-    ]
+    ],
   },
   {
-    name: 'tanete Rilau',
+    name: "Tanete Rilau",
     data: [
       { tahun: 2020, jml_penduduk: 37196 },
       { tahun: 2021, jml_penduduk: 37487 },
-      { tahun: 2022, jml_penduduk: 37831 }, 
+      { tahun: 2022, jml_penduduk: 37831 },
       { tahun: 2023, jml_penduduk: 39451 },
       { tahun: 2024, jml_penduduk: 39736 },
-    ]
+    ],
   },
   {
-    name: 'Barru',
+    name: "Barru",
     data: [
       { tahun: 2020, jml_penduduk: 43975 },
       { tahun: 2021, jml_penduduk: 44363 },
-      { tahun: 2022, jml_penduduk: 44817 }, 
+      { tahun: 2022, jml_penduduk: 44817 },
       { tahun: 2023, jml_penduduk: 46642 },
       { tahun: 2024, jml_penduduk: 46827 },
-    ]
+    ],
   },
   {
-    name: 'Soppeng Riaja',
+    name: "Soppeng Riaja",
     data: [
       { tahun: 2020, jml_penduduk: 18471 },
       { tahun: 2021, jml_penduduk: 18475 },
-      { tahun: 2022, jml_penduduk: 18503 }, 
+      { tahun: 2022, jml_penduduk: 18503 },
       { tahun: 2023, jml_penduduk: 18900 },
       { tahun: 2024, jml_penduduk: 18977 },
-    ]
+    ],
   },
   {
-    name: 'Balusu',
+    name: "Balusu",
     data: [
       { tahun: 2020, jml_penduduk: 18913 },
       { tahun: 2021, jml_penduduk: 18963 },
-      { tahun: 2022, jml_penduduk: 19038 }, 
+      { tahun: 2022, jml_penduduk: 19038 },
       { tahun: 2023, jml_penduduk: 20331 },
       { tahun: 2024, jml_penduduk: 20439 },
-    ]
+    ],
   },
   {
-    name: 'Mallusetasi',
+    name: "Mallusetasi",
     data: [
       { tahun: 2020, jml_penduduk: 27576 },
       { tahun: 2021, jml_penduduk: 27711 },
-      { tahun: 2022, jml_penduduk: 27884 }, 
+      { tahun: 2022, jml_penduduk: 27884 },
       { tahun: 2023, jml_penduduk: 28500 },
-      { tahun: 2024, jml_penduduk: 28538 }, 
-    ]
+      { tahun: 2024, jml_penduduk: 28538 },
+    ],
   },
   {
-    name: 'Kabupaten Barru',
+    name: "Kabupaten Barru",
     data: [
       { tahun: 2020, jml_penduduk: 184452 },
-      { tahun: 2021, jml_penduduk: 185525},
-      { tahun: 2022, jml_penduduk: 186910 }, 
+      { tahun: 2021, jml_penduduk: 185525 },
+      { tahun: 2022, jml_penduduk: 186910 },
       { tahun: 2023, jml_penduduk: 194543 },
       { tahun: 2024, jml_penduduk: 195385 },
-    ]
+    ],
   },
 ];
 
 const Data_penduduk_2024 = [
   {
-    name: 'laki-laki',
+    name: "laki-laki",
     data: [
-      { tahun: 0-4, jumlah: 5792},
-      { tahun: 5-9, jumlah: 7934},
-      { tahun: 10-14, jumlah: 8641},
-      { tahun: 15-19, jumlah: 8683},
-      { tahun: 20-24, jumlah: 8305},
-      { tahun: 25-29, jumlah: 7569},
-      { tahun: 30-34, jumlah: ''},
-      { tahun: 35-39, jumlah: 6083},
-      { tahun: 40-44, jumlah: 6528},
-      { tahun: 45-49, jumlah: 6213},
-      { tahun: 50-54, jumlah: 6267},
-      { tahun: 55-59, jumlah: 5168},
-      { tahun: 60-64, jumlah: ''},
-      { tahun: 65-69, jumlah: ''},
-      { tahun: 70-74, jumlah: 2238},
-      { tahun: 75, jumlah: 3201},
-    ]
+      { tahun: "0-4", jumlah: 5792 },
+      { tahun: "5-9", jumlah: 7934 },
+      { tahun: "10-14", jumlah: 8641 },
+      { tahun: "15-19", jumlah: 8683 },
+      { tahun: "20-24", jumlah: 8305 },
+      { tahun: "25-29", jumlah: 7569 },
+      { tahun: "30-34", jumlah: '' },
+      { tahun: "35-39", jumlah: 6083 },
+      { tahun: "40-44", jumlah: 6528 },
+      { tahun: "45-49", jumlah: 6213 },
+      { tahun: "50-54", jumlah: 6267 },
+      { tahun: "55-59", jumlah: 5168 },
+      { tahun: "60-64", jumlah: '' },
+      { tahun: "65-69", jumlah: '' },
+      { tahun: "70-74", jumlah: 2238 },
+      { tahun: "75+", jumlah: 3201 },
+    ],
   },
   {
-    name: 'perempuan',
+    name: "perempuan",
     data: [
-      { tahun: 0-4, jumlah: 4739},
-      { tahun: 5-9, jumlah: 2653},
-      { tahun: 10-14, jumlah: 3677},
-      { tahun: 15-19, jumlah: 5012},
-      { tahun: 20-24, jumlah: 5773},
-      { tahun: 25-29, jumlah: 6594},
-      { tahun: 30-34, jumlah: 7481},
-      { tahun: 35-39, jumlah: 6567},
-      { tahun: 40-44, jumlah: 6722},
-      { tahun: 45-49, jumlah: 6321},
-      { tahun: 50-54, jumlah: 6266},
-      { tahun: 55-59, jumlah: 7488},
-      { tahun: 60-64, jumlah: 8223},
-      { tahun: 65-69, jumlah: 8359},
-      { tahun: 70-74, jumlah: 8013},
-      { tahun: 75, jumlah: 5491},
-    ]
-  }
+      { tahun: "0-4", jumlah: 5491 },
+      { tahun: "5-9", jumlah: 8013 },
+      { tahun: "10-14", jumlah: 8359 },
+      { tahun: "15-19", jumlah: 8223},
+      { tahun: "20-24", jumlah: 7488},
+      { tahun: "25-29", jumlah: 6266},
+      { tahun: "30-34", jumlah: 6321 },
+      { tahun: "35-39", jumlah: 6722 },
+      { tahun: "40-44", jumlah:  6567},
+      { tahun: "45-49", jumlah: 7481},
+      { tahun: "50-54", jumlah: 6594 },
+      { tahun: "55-59", jumlah: 5773 },
+      { tahun: "60-64", jumlah: 5012 },
+      { tahun: "65-69", jumlah: 3677 },
+      { tahun: "70-74", jumlah: 2653 },
+      { tahun: "75+", jumlah: 4739},
+    ],
+  },
 ];
+
+// Transformasi agar cocok dengan recharts
+const transformedData = Data_penduduk_2024[0].data.map((item, index) => ({
+  umur: item.tahun,
+  laki_laki: item.jumlah || 0,
+  perempuan: Data_penduduk_2024[1].data[index]?.jumlah || 0,
+}));
 
 const dataChart = [2020, 2021, 2022, 2023, 2024].map((tahun) => {
   const entry = { tahun };
@@ -152,7 +168,9 @@ const Example = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-6 bg-white rounded-2xl shadow-md">
       {<LogoBps />}
-      <h2 className="text-xl font-semibold mb-4 text-center">Jumlah Penduduk Kabupaten Barru (2020–2024)</h2>
+      <h2 className="text-xl font-semibold mb-4 text-center">
+        Jumlah Penduduk Kabupaten Barru (2020–2024)
+      </h2>
 
       <p className="text-sm text-gray-500 mt-2 text-center italic">
         Jumlah Penduduk Kecamatan Barru dari tahun 2020 hingga 2024.
@@ -165,19 +183,23 @@ const Example = () => {
             <tr>
               <th className="border px-4 py-2">Kecamatan</th>
               {years.map((year) => (
-                <th key={year} className="border px-4 py-2 text-center">{year}</th>
+                <th key={year} className="border px-4 py-2 text-center">
+                  {year}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {data_kecamatan.map((kecamatan, idx) => (
               <tr key={idx} className="hover:bg-gray-50">
-                <td className="border px-4 py-2 font-medium">{kecamatan.name}</td>
+                <td className="border px-4 py-2 font-medium">
+                  {kecamatan.name}
+                </td>
                 {years.map((year) => {
                   const found = kecamatan.data.find((d) => d.tahun === year);
                   return (
                     <td key={year} className="border px-4 py-2 text-center">
-                      {found ? found.jml_penduduk.toLocaleString('id-ID') : '-'}
+                      {found ? found.jml_penduduk.toLocaleString("id-ID") : "-"}
                     </td>
                   );
                 })}
@@ -187,30 +209,23 @@ const Example = () => {
         </table>
       </div>
 
-      {/* 📈 CHART */}
-      {/* <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={dataChart} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
+      {/* 📊 CHART */}
+      <h1>Penduduk Kabupaten Barru Tahun 2024 : 195.385</h1>
+      <p>Sex Ratio: 96,60</p>
+      <ResponsiveContainer width="100%" height={400}>
+        <BarChart
+          data={transformedData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="tahun" />
+          <XAxis dataKey="umur" />
           <YAxis />
           <Tooltip />
-          <Legend
-            onMouseEnter={(e) => setHoveringDataKey(e.dataKey)}
-            onMouseLeave={() => setHoveringDataKey(null)}
-          />
-          {data_kecamatan.map((kec, index) => (
-            <Line
-              key={index}
-              type="monotone"
-              dataKey={kec.name}
-              stroke={`hsl(${index * 45}, 70%, 50%)`}
-              strokeWidth={2}
-              strokeOpacity={getOpacity(kec.name)}
-              dot={false}
-            />
-          ))}
-        </LineChart>
-      </ResponsiveContainer> */}
+          <Legend />
+          <Bar dataKey="laki_laki" fill="#8884d8" name="Laki-laki" />
+          <Bar dataKey="perempuan" fill="#FF7F50" name="Perempuan" />
+        </BarChart>
+      </ResponsiveContainer>  
     </div>
   );
 };
